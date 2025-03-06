@@ -1,29 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   time.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: oohnivch <oohnivch@student.42vienna.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/05 11:21:05 by oohnivch          #+#    #+#             */
-/*   Updated: 2025/03/06 14:55:31 by oohnivch         ###   ########.fr       */
+/*   Created: 2025/03/06 14:01:15 by oohnivch          #+#    #+#             */
+/*   Updated: 2025/03/06 14:05:56 by oohnivch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-int	main(int argc, char **argv)
+long	get_time(void)
 {
-	t_data	*data;
+	struct timeval	time;
+	long			t;
 
-	if (argc < 5 || argc > 6)
-	{
-		write(2, "Error: Wrong number of arguments\n", 33);
-		return (1);
-	}
-	data = ft_calloc(1, sizeof(t_data));
-	if (init(data, argv))
-		return (kill(data), 1);
-	p_philos(data->philos);
-	return (0);
+	if (-1 == gettimeofday(&time, NULL))
+		return (-1);
+	t = time.tv_sec * 1000 + time.tv_usec / 1000;
+	if (t < 0)
+		return (-1);
+	return (t);
 }

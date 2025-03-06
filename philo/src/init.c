@@ -6,7 +6,7 @@
 /*   By: oohnivch <oohnivch@student.42vienna.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 11:22:42 by oohnivch          #+#    #+#             */
-/*   Updated: 2025/03/05 14:04:32 by oohnivch         ###   ########.fr       */
+/*   Updated: 2025/03/06 17:36:47 by oohnivch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,37 +15,76 @@
 static int	args_check(char **argv)
 {
 	int		i;
-	long	l1;
-	long	l2;
+	long	num;
 	char	*tmp;
 
 	i = 0;
 	while (argv[++i])
 	{
-		l1 = ft_atol(argv[i]);
-		if (longlen(l1) != ft_strlen(argv[i]))
-			return (n_too_big());
-		tmp = ft_ltoa(l1);
+		if (!is_num(argv[i]))
+			return (not_n());
+		num = ft_atol(argv[i]);
+		if (longlen(num) != ft_strlen(argv[i]) || ft_strlen(argv[i]) > 19)
+			return (n_too_big(num, argv[i]));
+		tmp = ft_ltoa(num);
 		if (!tmp)
 			return (write(2, "ltoa error\n", 11), 1);
-		l2 = ft_atol(tmp);
-		if (i == 1 && l1 > 200)
-			return (ft_free((void **)&tmp), too_many_philos());
-		if (l1 != l2 || longlen(l1) != longlen(l2))
-			return (ft_free((void **)&tmp), n_too_big());
-		if (l1 < 0)
+		if (i == 1 && (num > 200 || num < 1))
+			return (ft_free((void **)&tmp), philo_num(num));
+		if (num != ft_atol(tmp) || longlen(num) != longlen(ft_atol(tmp)))
+			return (ft_free((void **)&tmp), n_too_big(num, argv[i]));
+		if (num < 0)
 			return (ft_free((void **)&tmp), n_too_small());
 		ft_free((void **)&tmp);
 	}
 	return (0);
 }
 
-int	init(char **argv)
+int	init_philo(t_data *data, char **argv, int i)
 {
-	int	i;
+	t_philo		*philo;
 
+	philo = ft_calloc(1, sizeof(t_philo));
+	if (!philo)
+		return (write(2, "calloc error\n", 13), 1);
+	link_to_data(data, philo);
+	philo->num_of_philos = ft_atol(argv[1]);
+	philo->index = philo->num_of_philos - i;
+	philo->time_to_die = ft_atol(argv[2]);
+	philo->time_to_eat = ft_atol(argv[3]);
+	philo->time_to_sleep = ft_atol(argv[4]);
+	if (argv[5])
+		philo->meals_to_eat = ft_atol(argv[5]);
+	philo->start_time = get_time();
+	philo->last_meal = philo->start_time;
+	p_philo(philo);
+	philo->frk = ft_calloc(1, sizeof(pthread_mutex_t));
+	if (!philo->frk)
+		return (write(2, "calloc error\n", 13), 1);
+	if (pthread_mutex_init(philo->frk, NULL))
+		return (write(2, "mutex init error\n", 1));
+	return (0);
+}
+
+int	init_philos(t_data *data, char **argv)
+{
+	int		i;
+
+	i = ft_atol(argv[1]);
+	while (i--)
+		init_philo(data, argv, i);
+	p_philos(data->philos);
+	if (!data->philos)
+		return (write(2, "init_philos error\n", 13), 1);
+	return (0);
+}
+
+int	init(t_data *data, char **argv)
+{
 	if (args_check(argv))
 		return (1);
-	i = 0;
+	data->num_of_philos = ft_atol(argv[1]);
+	if (init_philos(data, argv))
+		return (kill(data), 1);
 	return (0);
 }

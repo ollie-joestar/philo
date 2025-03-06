@@ -6,15 +6,26 @@
 /*   By: oohnivch <oohnivch@student.42vienna.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 12:11:48 by oohnivch          #+#    #+#             */
-/*   Updated: 2025/03/05 12:23:41 by oohnivch         ###   ########.fr       */
+/*   Updated: 2025/03/06 17:38:27 by oohnivch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-int	n_too_big(void)
+int	n_too_big(long n, char *str)
 {
-	return (write(2, "Can you even spell that number?\n", 33));
+	if (longlen(n) > 19)
+		return (write(2, "Can you even spell that number?\n", 33));
+	else if (*str == '0')
+	{
+		if (ft_strlen(str) > 1 && str[1] != '0')
+			return (write(2, "Remove the leading zero...\n", 28));
+		else if (ft_strlen(str) > 1 &&  str[1] == '0')
+			return (write(2, "Remove the leading zeros...\n", 29));
+	}
+	else
+		return (write(2, "Really? Too big number?\n", 24));
+	return (1);
 }
 
 int	n_too_small(void)
@@ -22,7 +33,19 @@ int	n_too_small(void)
 	return (write(2, "Really? Negative number?\n", 26));
 }
 
-int	too_many_philos(void)
+int	not_n(void)
 {
-	return (write(2, "Read the eval sheet... 200 max\n", 31));
+	return (write (2, "That's not even a number...\n", 29));
+}
+
+int	philo_num(long n)
+{
+	if (n == 0)
+		return (write(2, "Zero philosophers? Really?\n", 28));
+	if (n > 200)
+		return (write(2, "Read the eval sheet... 200 max\n", 31));
+	if (n < 1)
+		return (write(2, "Really? Negative number of philosophers?\n", 41));
+	else
+		return (0);
 }
