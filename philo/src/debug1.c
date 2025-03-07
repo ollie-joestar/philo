@@ -6,7 +6,7 @@
 /*   By: oohnivch <oohnivch@student.42vienna.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 14:24:34 by oohnivch          #+#    #+#             */
-/*   Updated: 2025/03/06 14:27:21 by oohnivch         ###   ########.fr       */
+/*   Updated: 2025/03/07 14:30:40 by oohnivch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ void	p_philo(t_philo *philo)
 	if (!philo)
 		return ;
 	printf("philo [%d]\n", philo->index);
+	printf("adress: %p\n", philo);
 	printf("num_of_philos: %d\n", philo->num_of_philos);
 	printf("time_to_die: %ld\n", philo->time_to_die);
 	printf("time_to_eat: %ld\n", philo->time_to_eat);
@@ -26,25 +27,33 @@ void	p_philo(t_philo *philo)
 	printf("start_time: %ld\n", philo->start_time);
 	printf("last_meal: %ld\n", philo->last_meal);
 	printf("frk: %p\n", philo->frk);
-	printf("next: %p\n", philo->next);
-	printf("prev: %p\n", philo->prev);
+	if (philo->next)
+		printf("next: %p id: %d\n", philo->next, philo->next->index);
+	else
+		printf("next: %p\n", philo->next);
+	if (philo->prev)
+		printf("prev: %p id: %d\n", philo->prev, philo->prev->index);
+	else
+		printf("prev: %p\n", philo->prev);
 	printf("\n");
 }
 
-void	p_philos(t_philo *philo)
+void	p_philos(t_data *data)
 {
-	t_philo	*tmp;
-	t_philo	*frst;
-	t_philo	*last;
+	int	i;
+	t_philo	*philo;
 
-	if (!philo)
-		return ;
-	frst = first_philo(philo);
-	last = last_philo(philo);
-	tmp = frst;
-	while (tmp != last)
+	printf("printing philos\n");
+	if (!data || !data->philos)
 	{
-		p_philo(tmp);
-		tmp = tmp->next;
+		printf("no philos in data\n");
+		return ;
+	}
+	philo = first_philo(data->philos);
+	i = data->num_of_philos;
+	while (i--)
+	{
+		p_philo(philo);
+		philo = philo->next;
 	}
 }

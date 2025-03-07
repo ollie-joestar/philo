@@ -1,32 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   overseer.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: oohnivch <oohnivch@student.42vienna.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/05 11:21:05 by oohnivch          #+#    #+#             */
-/*   Updated: 2025/03/07 18:43:34 by oohnivch         ###   ########.fr       */
+/*   Created: 2025/03/07 14:20:40 by oohnivch          #+#    #+#             */
+/*   Updated: 2025/03/07 14:31:36 by oohnivch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-int	main(int argc, char **argv)
+int	overseer(t_data *data)
 {
-	t_data	*data;
+	t_philo	*philo;
+	int		i;
 
-	if (argc < 5 || argc > 6)
+	philo = first_philo(data->philos);
+	i = 0;
+	while (i < data->num_of_philos)
 	{
-		write(2, "Error: Wrong number of arguments\n", 33);
-		return (1);
+		if (pthread_join(philo->thread, NULL))
+			return (1);
+		i++;
+		philo = philo->next;
 	}
-	data = ft_calloc(1, sizeof(t_data));
-	if (init(data, argv))
-		return (kill(data), 1);
-	if (start(data))
-		return (kill(data), 1);
-	if (overseer(data))
-		return (kill(data), 1);
-	return (kill(data), 0);
+	return (0);
 }

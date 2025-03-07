@@ -6,11 +6,21 @@
 /*   By: oohnivch <oohnivch@student.42vienna.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 12:05:12 by oohnivch          #+#    #+#             */
-/*   Updated: 2025/03/06 17:20:52 by oohnivch         ###   ########.fr       */
+/*   Updated: 2025/03/07 14:00:40 by oohnivch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
+
+void	ft_usleep(long time)
+{
+	long	start;
+
+	start = get_time();
+	while (get_time() - start < time)
+		usleep(100);
+	return ;
+}
 
 int	is_num(char *str)
 {

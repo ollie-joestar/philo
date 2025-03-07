@@ -6,7 +6,7 @@
 #    By: oohnivch <oohnivch@student.42vienna.com>   +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/02/27 12:33:39 by oohnivch          #+#    #+#              #
-#    Updated: 2025/03/06 16:59:20 by oohnivch         ###   ########.fr        #
+#    Updated: 2025/03/07 14:22:29 by oohnivch         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 #									Variables								   #
@@ -38,7 +38,9 @@ SRC = clean.c \
 	  init.c \
 	  main.c \
 	  numbers.c \
+	  overseer.c \
 	  philo_utils.c \
+	  routine.c \
 	  time.c \
 
 OBJ = $(SRC:%.c=%.o)

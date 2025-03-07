@@ -6,7 +6,7 @@
 /*   By: oohnivch <oohnivch@student.42vienna.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 11:22:42 by oohnivch          #+#    #+#             */
-/*   Updated: 2025/03/06 17:36:47 by oohnivch         ###   ########.fr       */
+/*   Updated: 2025/03/07 18:36:14 by oohnivch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,24 +40,21 @@ static int	args_check(char **argv)
 	return (0);
 }
 
-int	init_philo(t_data *data, char **argv, int i)
+static int	init_philo(t_data *data, char **argv, int i)
 {
 	t_philo		*philo;
 
 	philo = ft_calloc(1, sizeof(t_philo));
 	if (!philo)
 		return (write(2, "calloc error\n", 13), 1);
-	link_to_data(data, philo);
 	philo->num_of_philos = ft_atol(argv[1]);
 	philo->index = philo->num_of_philos - i;
+	link_to_data(data, philo);
 	philo->time_to_die = ft_atol(argv[2]);
 	philo->time_to_eat = ft_atol(argv[3]);
 	philo->time_to_sleep = ft_atol(argv[4]);
 	if (argv[5])
 		philo->meals_to_eat = ft_atol(argv[5]);
-	philo->start_time = get_time();
-	philo->last_meal = philo->start_time;
-	p_philo(philo);
 	philo->frk = ft_calloc(1, sizeof(pthread_mutex_t));
 	if (!philo->frk)
 		return (write(2, "calloc error\n", 13), 1);
@@ -72,8 +69,11 @@ int	init_philos(t_data *data, char **argv)
 
 	i = ft_atol(argv[1]);
 	while (i--)
-		init_philo(data, argv, i);
-	p_philos(data->philos);
+	{
+		if (init_philo(data, argv, i))
+			return (1);
+	}
+	/*p_philos(data);*/
 	if (!data->philos)
 		return (write(2, "init_philos error\n", 13), 1);
 	return (0);

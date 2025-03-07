@@ -6,7 +6,7 @@
 /*   By: oohnivch <oohnivch@student.42vienna.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 13:54:04 by oohnivch          #+#    #+#             */
-/*   Updated: 2025/03/06 14:58:24 by oohnivch         ###   ########.fr       */
+/*   Updated: 2025/03/07 14:30:13 by oohnivch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,15 @@ t_philo *first_philo(t_philo *philo)
 
 	if (!philo)
 		return (NULL);
-	min = philo->index;
+	min = 201;
 	while (philo->index < min)
 	{
 		min = philo->index;
-		if (!philo->next)
+		if (!philo->prev)
 			return (philo);
-		philo = philo->next;
+		if (philo->prev->index > philo->index)
+			break ;
+		philo = philo->prev;
 	}
 	return (philo);
 }
@@ -35,12 +37,14 @@ t_philo	*last_philo(t_philo *philo)
 
 	if (!philo)
 		return (NULL);
-	max = philo->index;
+	max = -1;
 	while (philo->index > max)
 	{
 		max = philo->index;
 		if (!philo->next)
 			return (philo);
+		if (philo->next->index < philo->index)
+			break ;
 		philo = philo->next;
 	}
 	return (philo);
@@ -51,11 +55,15 @@ void	link_to_data(t_data *data, t_philo *philo)
 	t_philo	*frst;
 	t_philo	*last;
 
+	if (!data)
+		return ;
+	philo->print_lock = &data->print_lock;
+	philo->death_lock = &data->death_lock;
+	philo->meals_lock = &data->meals_lock;
+	philo->is_dead = &data->dead_flag;
 	if (!data->philos)
 	{
 		data->philos = philo;
-		data->philos->next = philo;
-		data->philos->prev = philo;
 		return ;
 	}
 	frst = first_philo(data->philos);
