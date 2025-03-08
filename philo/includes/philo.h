@@ -6,7 +6,7 @@
 /*   By: oohnivch <oohnivch@student.42vienna.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 12:55:01 by oohnivch          #+#    #+#             */
-/*   Updated: 2025/03/07 18:43:09 by oohnivch         ###   ########.fr       */
+/*   Updated: 2025/03/08 11:41:28 by oohnivch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,10 @@ typedef struct s_philo
 	pthread_mutex_t	*frk;
 	pthread_mutex_t	*print_lock;
 	pthread_mutex_t	*death_lock;
-	pthread_mutex_t	*meals_lock;
+	pthread_mutex_t	*queue_lock;
+
+	int				*q_buff;
+	int				*q_turn;
 	struct s_philo	*next;
 	struct s_philo	*prev;
 }				t_philo;
@@ -51,10 +54,12 @@ typedef struct s_data
 {
 	int				num_of_philos;
 	int				dead_flag;
+	int				q_buff;
+	int				q_turn;
 
 	pthread_mutex_t	print_lock;
 	pthread_mutex_t	death_lock;
-	pthread_mutex_t	meals_lock;
+	pthread_mutex_t	queue_lock;
 
 	t_philo			*philos;
 }				t_data;

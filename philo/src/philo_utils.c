@@ -6,7 +6,7 @@
 /*   By: oohnivch <oohnivch@student.42vienna.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 13:54:04 by oohnivch          #+#    #+#             */
-/*   Updated: 2025/03/07 14:30:13 by oohnivch         ###   ########.fr       */
+/*   Updated: 2025/03/08 11:56:11 by oohnivch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,13 +59,19 @@ void	link_to_data(t_data *data, t_philo *philo)
 		return ;
 	philo->print_lock = &data->print_lock;
 	philo->death_lock = &data->death_lock;
-	philo->meals_lock = &data->meals_lock;
+	philo->queue_lock = &data->queue_lock;
 	philo->is_dead = &data->dead_flag;
+	philo->q_buff = &data->q_buff;
+	philo->q_turn = &data->q_turn;
 	if (!data->philos)
 	{
+		printf("replacing philos in data\n");
+		philo->next = philo;
+		philo->prev = philo;
 		data->philos = philo;
 		return ;
 	}
+	printf("linking philo to data\n");
 	frst = first_philo(data->philos);
 	last = last_philo(data->philos);
 	frst->prev = philo;

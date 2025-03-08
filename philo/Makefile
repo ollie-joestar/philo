@@ -6,14 +6,15 @@
 #    By: oohnivch <oohnivch@student.42vienna.com>   +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/02/27 12:33:39 by oohnivch          #+#    #+#              #
-#    Updated: 2025/03/07 14:22:29 by oohnivch         ###   ########.fr        #
+#    Updated: 2025/03/08 12:01:05 by oohnivch         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 #									Variables								   #
 # **************************************************************************** #
 
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -g -fsanitize=undefined
+# CFLAGS = -Wall -Wextra -Werror -g -fsanitize=undefined
+CFLAGS = -Wall -Wextra -Werror -g
 MFLAGS = --no-print-directory -C
 HEADER = -I./includes
 NAME = philo

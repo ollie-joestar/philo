@@ -6,7 +6,7 @@
 /*   By: oohnivch <oohnivch@student.42vienna.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 14:24:34 by oohnivch          #+#    #+#             */
-/*   Updated: 2025/03/07 14:30:40 by oohnivch         ###   ########.fr       */
+/*   Updated: 2025/03/08 11:58:47 by oohnivch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ void	p_philo(t_philo *philo)
 		printf("next: %p id: %d\n", philo->next, philo->next->index);
 	else
 		printf("next: %p\n", philo->next);
+	/*printf("\n\n\n NOW READ THE WEIRD ERROR\n\n\n");*/
 	if (philo->prev)
 		printf("prev: %p id: %d\n", philo->prev, philo->prev->index);
 	else

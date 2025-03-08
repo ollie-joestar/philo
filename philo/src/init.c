@@ -6,7 +6,7 @@
 /*   By: oohnivch <oohnivch@student.42vienna.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 11:22:42 by oohnivch          #+#    #+#             */
-/*   Updated: 2025/03/07 18:36:14 by oohnivch         ###   ########.fr       */
+/*   Updated: 2025/03/08 11:54:23 by oohnivch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ static int	init_philo(t_data *data, char **argv, int i)
 		return (write(2, "calloc error\n", 13), 1);
 	if (pthread_mutex_init(philo->frk, NULL))
 		return (write(2, "mutex init error\n", 1));
+	p_philo(philo);
 	return (0);
 }
 

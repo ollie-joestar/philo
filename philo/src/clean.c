@@ -6,7 +6,7 @@
 /*   By: oohnivch <oohnivch@student.42vienna.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 14:40:31 by oohnivch          #+#    #+#             */
-/*   Updated: 2025/03/07 18:42:48 by oohnivch         ###   ########.fr       */
+/*   Updated: 2025/03/08 11:53:07 by oohnivch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,24 +25,18 @@ void	free_philo(t_philo *philo)
 void	free_philos(t_data *data)
 {
 	int		i;
+	t_philo	*tmp;
 
 	if (!data || !data->philos)
 		return ;
 	i = data->num_of_philos;
 	while (i-- && data->philos)
 	{
-		if (data->philos->next)
-		{
-			data->philos = data->philos->next;
-			free_philo(data->philos->prev);
-			data->philos->prev = NULL;
-		}
-		else
-		{
-			free_philo(data->philos);
-			data->philos = NULL;
-		}
+		tmp = data->philos->next;
+		free_philo(data->philos);
+		data->philos = tmp;
 	}
+	data->philos = NULL;
 }
 
 void	kill(t_data *data)
@@ -52,4 +46,5 @@ void	kill(t_data *data)
 	if (data->philos)
 		free_philos(data);
 	free(data);
+	data = NULL;
 }
