@@ -6,7 +6,7 @@
 #    By: oohnivch <oohnivch@student.42vienna.com>   +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/02/27 12:33:39 by oohnivch          #+#    #+#              #
-#    Updated: 2025/03/08 12:01:05 by oohnivch         ###   ########.fr        #
+#    Updated: 2025/03/21 18:52:26 by oohnivch         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 #									Variables								   #
@@ -14,7 +14,7 @@
 
 CC = cc
 # CFLAGS = -Wall -Wextra -Werror -g -fsanitize=undefined
-CFLAGS = -Wall -Wextra -Werror -g
+CFLAGS = -Wall -Wextra -Werror
 MFLAGS = --no-print-directory -C
 HEADER = -I./includes
 NAME = philo
@@ -32,15 +32,19 @@ YELLOW = \033[0;33m
 SRC_PATH = src/
 OBJ_PATH = obj/
 
-SRC = clean.c \
+SRC = checks.c \
+	  clean.c \
 	  debug1.c \
 	  error.c \
 	  general_utils.c \
 	  init.c \
 	  main.c \
+	  mutex_utils.c \
 	  numbers.c \
 	  overseer.c \
+	  philo_actions.c \
 	  philo_utils.c \
+	  print.c \
 	  routine.c \
 	  time.c \
 

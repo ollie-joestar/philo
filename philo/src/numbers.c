@@ -6,7 +6,7 @@
 /*   By: oohnivch <oohnivch@student.42vienna.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 11:38:18 by oohnivch          #+#    #+#             */
-/*   Updated: 2025/03/07 18:43:16 by oohnivch         ###   ########.fr       */
+/*   Updated: 2025/03/23 18:50:28 by oohnivch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,10 +51,8 @@ static void	put_long(long n, char *str)
 {
 	unsigned long	num;
 	int				neg;
-	int				i;
 	int				index;
 
-	i = 0;
 	neg = n < 0;
 	index = longlen(n) - 1;
 	if (n == 0)
@@ -94,4 +92,21 @@ char	*ft_ltoa(long n)
 		return (NULL);
 	}
 	return (str);
+}
+
+int	is_num(char *str)
+{
+	if (!str || !*str)
+		return (0);
+	while (*str == ' ')
+		str++;
+	if (*str == '-' || *str == '+')
+		str++;
+	while (*str)
+	{
+		if (!(*str >= '0' && *str <= '9'))
+			return (0);
+		str++;
+	}
+	return (1);
 }

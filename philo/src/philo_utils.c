@@ -6,13 +6,13 @@
 /*   By: oohnivch <oohnivch@student.42vienna.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 13:54:04 by oohnivch          #+#    #+#             */
-/*   Updated: 2025/03/08 11:56:11 by oohnivch         ###   ########.fr       */
+/*   Updated: 2025/03/23 19:09:02 by oohnivch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-t_philo *first_philo(t_philo *philo)
+t_philo	*first_philo(t_philo *philo)
 {
 	int	min;
 
@@ -55,27 +55,48 @@ void	link_to_data(t_data *data, t_philo *philo)
 	t_philo	*frst;
 	t_philo	*last;
 
-	if (!data)
-		return ;
 	philo->print_lock = &data->print_lock;
-	philo->death_lock = &data->death_lock;
-	philo->queue_lock = &data->queue_lock;
-	philo->is_dead = &data->dead_flag;
-	philo->q_buff = &data->q_buff;
-	philo->q_turn = &data->q_turn;
+	philo->start_lock = &data->start_lock;
+	philo->meals_lock = &data->meals_lock;
+	philo->clock_lock = &data->clock_lock;
+	philo->dead = &data->dead;
+	philo->full = &data->full;
+	philo->start = &data->start;
+	philo->start_time = &data->start_time;
 	if (!data->philos)
 	{
-		printf("replacing philos in data\n");
 		philo->next = philo;
 		philo->prev = philo;
 		data->philos = philo;
 		return ;
 	}
-	printf("linking philo to data\n");
 	frst = first_philo(data->philos);
 	last = last_philo(data->philos);
 	frst->prev = philo;
 	last->next = philo;
 	philo->next = frst;
 	philo->prev = last;
+}
+
+void	update_meals(t_philo *philo)
+{
+	lock(philo->meals_lock);
+	philo->meals_eaten++;
+	if (philo->meals_to_eat != 0 && philo->meals_eaten >= philo->meals_to_eat)
+		*philo->full += 1;
+	unlock(philo->meals_lock);
+}
+
+void	set_frks(t_philo *philo)
+{
+	if (&philo->frk < &philo->next->frk)
+	{
+		philo->frst_frk = &philo->frk;
+		philo->scnd_frk = &philo->next->frk;
+	}
+	else
+	{
+		philo->frst_frk = &philo->next->frk;
+		philo->scnd_frk = &philo->frk;
+	}
 }

@@ -6,7 +6,7 @@
 /*   By: oohnivch <oohnivch@student.42vienna.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 12:11:48 by oohnivch          #+#    #+#             */
-/*   Updated: 2025/03/06 17:38:27 by oohnivch         ###   ########.fr       */
+/*   Updated: 2025/03/24 14:26:00 by oohnivch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,17 @@
 
 int	n_too_big(long n, char *str)
 {
-	if (longlen(n) > 19)
+	if (longlen(n) > 19 || ft_strlen(str) > 19)
 		return (write(2, "Can you even spell that number?\n", 33));
 	else if (*str == '0')
 	{
 		if (ft_strlen(str) > 1 && str[1] != '0')
 			return (write(2, "Remove the leading zero...\n", 28));
-		else if (ft_strlen(str) > 1 &&  str[1] == '0')
+		else if (ft_strlen(str) > 1 && str[1] == '0')
 			return (write(2, "Remove the leading zeros...\n", 29));
 	}
 	else
-		return (write(2, "Really? Too big number?\n", 24));
+		return (write(2, "Bruh... just use a normal argument\n", 36));
 	return (1);
 }
 
@@ -38,14 +38,28 @@ int	not_n(void)
 	return (write (2, "That's not even a number...\n", 29));
 }
 
-int	philo_num(long n)
+int	zero_check(long n, int i)
 {
-	if (n == 0)
-		return (write(2, "Zero philosophers? Really?\n", 28));
-	if (n > 200)
-		return (write(2, "Read the eval sheet... 200 max\n", 31));
-	if (n < 1)
-		return (write(2, "Really? Negative number of philosophers?\n", 41));
-	else
-		return (0);
+	if (i == 1)
+	{
+		if (n == 0)
+			return (write(2, "Zero philosophers? Really?\n", 28));
+		if (n > 200)
+			return (write(2, "Read the eval sheet... 200 max\n", 31));
+		if (n < 1)
+			return (write(2, "Negative num of philosophers?..\n", 32));
+	}
+	if (i == 2)
+	{
+		if (n == 0)
+			return (write(2, "Zero time to die? Have a heart...\n", 35));
+		if (n < 10)
+			return (write(2, "Give at least 60ms to die\n", 29));
+	}
+	if (i == 5)
+	{
+		if (n == 0)
+			return (write(2, "Not hungry\n", 11));
+	}
+	return (0);
 }
