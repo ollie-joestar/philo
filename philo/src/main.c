@@ -6,7 +6,7 @@
 /*   By: oohnivch <oohnivch@student.42vienna.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 23:41:48 by oohnivch          #+#    #+#             */
-/*   Updated: 2025/03/24 14:23:11 by oohnivch         ###   ########.fr       */
+/*   Updated: 2025/03/24 14:36:37 by oohnivch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ static int	join_and_kill(t_data *data, int thread_num)
 	return (kill(data), 1);
 }
 
-int	start(t_data *data)
+static int	start(t_data *data)
 {
 	t_philo	*philo;
 	int		i;

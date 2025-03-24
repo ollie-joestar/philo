@@ -6,7 +6,7 @@
 /*   By: oohnivch <oohnivch@student.42vienna.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 11:22:42 by oohnivch          #+#    #+#             */
-/*   Updated: 2025/03/24 11:09:23 by oohnivch         ###   ########.fr       */
+/*   Updated: 2025/03/24 14:37:32 by oohnivch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static int	init_philo(t_data *data, char **argv, int i)
 	return (0);
 }
 
-int	init_philos(t_data *data, char **argv)
+static int	init_philos(t_data *data, char **argv)
 {
 	int		i;
 
@@ -47,7 +47,7 @@ int	init_philos(t_data *data, char **argv)
 	return (0);
 }
 
-int	init_overseer(t_data *data)
+static int	init_overseer(t_data *data)
 {
 	t_overseer	*overseer;
 

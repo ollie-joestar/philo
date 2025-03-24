@@ -6,7 +6,7 @@
 /*   By: oohnivch <oohnivch@student.42vienna.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 12:55:01 by oohnivch          #+#    #+#             */
-/*   Updated: 2025/03/24 14:19:39 by oohnivch         ###   ########.fr       */
+/*   Updated: 2025/03/24 14:40:18 by oohnivch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,6 @@ typedef struct s_data
 
 // Initialization
 int		init(t_data *data, char **argv);
-int		init_philos(t_data *data, char **argv);
 
 // Numbers
 long	ft_atol(const char *str);
@@ -89,7 +88,6 @@ size_t	longlen(long n);
 // Errors
 int		n_too_big(long n, char *str);
 int		n_too_small(void);
-int		too_many_philos(void);
 int		not_n(void);
 int		zero_check(long n, int i);
 
@@ -108,7 +106,6 @@ void	print_death(t_philo *philo);
 
 // Routine
 int		overseer(void *ptr);
-int		start(t_data *data);
 void	*philo_routine(void *ptr);
 void	set_frks(t_philo *philo);
 void	eat(t_philo *philo);
@@ -125,7 +122,6 @@ int		organised(t_philo *philo);
 int		hungry(t_philo *philo);
 int		dead(t_philo *philo);
 int		full(t_philo *philo);
-
 // Utils
 size_t	ft_strlen(const char *str);
 void	*ft_calloc(size_t nmemb, size_t size);
@@ -133,19 +129,15 @@ int		is_num(char *str);
 long	get_time(void);
 void	ft_free(void **ptr);
 void	kill(t_data *data);
-void	free_philos(t_data *data);
-void	free_philo(t_philo **philo);
-void	e_lock(pthread_mutex_t *lock, t_philo *philo, char *s);
-void	e_unlock(pthread_mutex_t *lock, t_philo *philo, char *s);
 void	lock(pthread_mutex_t *lock);
 void	unlock(pthread_mutex_t *lock);
-void	lock_fork(pthread_mutex_t *lock, t_philo *philo);
-void	unlock_fork(pthread_mutex_t *lock, t_philo *philo);
 void	lock_forks(t_philo *philo);
 void	unlock_forks(t_philo *philo);
 
 // Debug
 void	p_philo(t_philo *philo);
 void	p_philos(t_data *data);
+void	e_lock(pthread_mutex_t *lock, t_philo *philo, char *s);
+void	e_unlock(pthread_mutex_t *lock, t_philo *philo, char *s);
 
 #endif
