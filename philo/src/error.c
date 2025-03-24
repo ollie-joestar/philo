@@ -6,7 +6,7 @@
 /*   By: oohnivch <oohnivch@student.42vienna.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 12:11:48 by oohnivch          #+#    #+#             */
-/*   Updated: 2025/03/24 14:38:01 by oohnivch         ###   ########.fr       */
+/*   Updated: 2025/03/24 16:00:10 by oohnivch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int	zero_check(long n, int i)
 	{
 		if (n == 0)
 			return (write(2, "Zero philosophers? Really?\n", 28));
-		if (n > 200)
+		if (n > 201)
 			return (write(2, "Read the eval sheet... 200 max\n", 31));
 		if (n < 1)
 			return (write(2, "Negative num of philosophers?..\n", 32));
@@ -53,8 +53,8 @@ int	zero_check(long n, int i)
 	{
 		if (n == 0)
 			return (write(2, "Zero time to die? Have a heart...\n", 35));
-		if (n < 10)
-			return (write(2, "Give at least 60ms to die\n", 29));
+		if (n < 1)
+			return (write(2, "Give at least 1ms to die\n", 26));
 	}
 	if (i == 5)
 	{

@@ -6,11 +6,21 @@
 /*   By: oohnivch <oohnivch@student.42vienna.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 11:22:42 by oohnivch          #+#    #+#             */
-/*   Updated: 2025/03/24 14:37:32 by oohnivch         ###   ########.fr       */
+/*   Updated: 2025/03/24 16:00:45 by oohnivch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
+
+static void	dest_mtx(t_data *data, int i)
+{
+	if (i > 0)
+		destroy(&data->print_lock);
+	if (i > 1)
+		destroy(&data->start_lock);
+	if (i > 2)
+		destroy(&data->meals_lock);
+}
 
 static int	init_philo(t_data *data, char **argv, int i)
 {
@@ -68,14 +78,20 @@ static int	init_overseer(t_data *data)
 
 int	init(t_data *data, char **argv)
 {
+	int	i;
+
+	i = 0;
 	if (pthread_mutex_init(&data->print_lock, NULL))
 		return (write(2, "mutex init error\n", 17), 1);
+	i++;
 	if (pthread_mutex_init(&data->start_lock, NULL))
-		return (write(2, "mutex init error\n", 17), 1);
+		return (dest_mtx(data, i), write(2, "mutex init error\n", 17), 1);
+	i++;
 	if (pthread_mutex_init(&data->meals_lock, NULL))
-		return (write(2, "mutex init error\n", 17), 1);
+		return (dest_mtx(data, i), write(2, "mutex init error\n", 17), 1);
+	i++;
 	if (pthread_mutex_init(&data->clock_lock, NULL))
-		return (write(2, "mutex init error\n", 17), 1);
+		return (dest_mtx(data, i), write(2, "mutex init error\n", 17), 1);
 	data->num_of_philos = ft_atol(argv[1]);
 	if (init_philos(data, argv))
 		return (kill(data), 1);

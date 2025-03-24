@@ -6,7 +6,7 @@
 /*   By: oohnivch <oohnivch@student.42vienna.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 12:55:01 by oohnivch          #+#    #+#             */
-/*   Updated: 2025/03/24 14:40:18 by oohnivch         ###   ########.fr       */
+/*   Updated: 2025/03/24 15:33:25 by oohnivch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,6 +131,7 @@ void	ft_free(void **ptr);
 void	kill(t_data *data);
 void	lock(pthread_mutex_t *lock);
 void	unlock(pthread_mutex_t *lock);
+void	destroy(pthread_mutex_t *lock);
 void	lock_forks(t_philo *philo);
 void	unlock_forks(t_philo *philo);
 

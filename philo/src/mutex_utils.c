@@ -6,7 +6,7 @@
 /*   By: oohnivch <oohnivch@student.42vienna.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 18:01:50 by oohnivch          #+#    #+#             */
-/*   Updated: 2025/03/23 18:50:17 by oohnivch         ###   ########.fr       */
+/*   Updated: 2025/03/24 15:33:17 by oohnivch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,11 @@ void	lock(pthread_mutex_t *lock)
 void	unlock(pthread_mutex_t *lock)
 {
 	pthread_mutex_unlock(lock);
+}
+
+void	destroy(pthread_mutex_t *lock)
+{
+	pthread_mutex_destroy(lock);
 }
 
 void	lock_forks(t_philo *philo)
